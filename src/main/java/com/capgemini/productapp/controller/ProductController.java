@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.productapp.entity.Product;
@@ -58,22 +59,30 @@ public class ProductController {
 		return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
 	}
 
-	
-	
 	@GetMapping("/prod/{productCategory}")
 	public ResponseEntity<List> findProductByCategory(@PathVariable String productCategory) {
 		List<Product> productFromDb = productService.findByCategory(productCategory);
 		return new ResponseEntity<List>(productFromDb, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/name/{productName}")
 	public ResponseEntity<List> findProductByName(@PathVariable String productName) {
 		List<Product> productFromDb = productService.findByName(productName);
 		return new ResponseEntity<List>(productFromDb, HttpStatus.OK);
 	}
 
+	@GetMapping("/inrange")
+	public ResponseEntity<List> findProductByRange(@RequestParam Double lowPrice, Double highPrice) {
+		List<Product> productFromDb = productService.findByRange(lowPrice, highPrice);
+		return new ResponseEntity<List>(productFromDb, HttpStatus.OK);
+	}
 	
-	
+	@GetMapping("/custom")
+	public ResponseEntity<List> findProductByCustom(@RequestParam Double lowPrice, Double highPrice, String productCategory) {
+		List<Product> productFromDb = productService.findByCustom(productCategory, lowPrice, highPrice);
+		return new ResponseEntity<List>(productFromDb, HttpStatus.OK);
+	}
+
 	@DeleteMapping("/products/{productId}")
 	public ResponseEntity<Product> deleteProduct(@PathVariable int productId) {
 		try {

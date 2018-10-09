@@ -17,7 +17,10 @@ public interface ProductRepository extends MongoRepository<Product, Integer> {
 
 	@Query("{ 'productCategory' : ?0 }")
 	List<Product> findOrdersByproductCategory(String productCategory);
+
+	@Query("{'productPrice':{'$gt' : ?0, '$lt' : ?1}}")
+	List<Product> findByProductPriceBetween(double lowPrice, double highPrice);
 	
-//	@Query({"productPrice" : {"$gt" : from , "$lt" : to}})
-//	List<Product> findByProductPriceBetween(int from, int to);
+	@Query("{'productCategory':?0},{'productPrice':{'$gt' : ?1, '$lt' : ?2}}")
+	List<Product> findProductByProductCustom(String productCategory, double lowPrice, double highPrice);
 }

@@ -53,4 +53,15 @@ public class ProductServiceImpl implements ProductService {
 
 	}
 
+	@Override
+	public List<Product> findByRange(Double lowPrice, Double highPrice) {
+		return productRepository.findByProductPriceBetween(lowPrice, highPrice);
+	}
+
+	@Override
+	public List<Product> findByCustom(String productCategory, Double lowPrice, Double highPrice) {
+		// TODO Auto-generated method stub
+		return productRepository.findProductByProductCustom(productCategory, lowPrice, highPrice);
+	}
+
 }

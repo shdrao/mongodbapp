@@ -23,4 +23,8 @@ public interface ProductService {
 
 	public List<Product> findByName(String productName);
 
+	public List<Product> findByRange(Double lowPrice, Double highPrice);
+	
+	public List<Product> findByCustom(String productCategory,Double lowPrice, Double highPrice);
+
 }
